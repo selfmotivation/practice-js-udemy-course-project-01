@@ -15,32 +15,30 @@ export const modals = () => {
     });
 
     close.addEventListener('click', () => {
-      modal.style.display = 'none';
-      fixBodyPosition();
+      closeModal(modal);
     });
 
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape') {
-        modal.style.display = 'none';
-        fixBodyPosition();
+        closeModal(modal);
       }
     })
 
     modal.addEventListener('click', (e) => {
       if (e.target === modal) {
-        modal.style.display = 'none';
-        fixBodyPosition();
+        closeModal(modal);
       }
     })
   }
-
-  const fixBodyPosition = () => {
-    document.body.classList.toggle('modal-open');
+  
+  const closeModal = modal => {
+    modal.style.display = 'none';
+    document.body.classList.remove('modal-open');
   }
 
   const showModal = modal => {
     modal.style.display = 'block';
-    fixBodyPosition();
+    document.body.classList.add('modal-open');
   }
 
   const showModalByTime = (selector, time) => {
