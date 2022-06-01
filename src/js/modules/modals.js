@@ -15,12 +15,21 @@ export const modals = () => {
     });
 
     close.addEventListener('click', () => {
-      closeModal(modal);
+      modal.style.display = 'none';
+      fixBodyPosition();
     });
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        modal.style.display = 'none';
+        fixBodyPosition();
+      }
+    })
 
     modal.addEventListener('click', (e) => {
       if (e.target === modal) {
-        closeModal(modal);
+        modal.style.display = 'none';
+        fixBodyPosition();
       }
     })
   }
@@ -34,11 +43,6 @@ export const modals = () => {
     fixBodyPosition();
   }
 
-  const closeModal = modal => {
-    modal.style.display = 'none';
-    fixBodyPosition();
-  }
-
   const showModalByTime = (selector, time) => {
     setTimeout(() => {
       showModal(document.querySelector(selector));
@@ -48,5 +52,5 @@ export const modals = () => {
   bindModal('.popup_engineer_btn', '.popup_engineer', '.popup_engineer .popup_close');
   bindModal('.phone_link', '.popup', '.popup .popup_close');
 
-  showModalByTime('.popup', 60000);
+  showModalByTime('.popup', 5000);
 };
