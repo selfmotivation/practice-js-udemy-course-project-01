@@ -1,11 +1,11 @@
-export const modals = () => {
-  const bindModal = (triggerSelector, modalSelector, closeSelector) => {
-    const triggers = document.querySelectorAll(triggerSelector);
-    const modal = document.querySelector(modalSelector);
-    const close = document.querySelector(closeSelector);
+export const modals = (): void => {
+  const bindModal = (triggerSelector: string, modalSelector: string, closeSelector: string): void => {
+    const triggers: NodeList = document.querySelectorAll(triggerSelector);
+    const modal: Node = document.querySelector(modalSelector);
+    const close: Node = document.querySelector(closeSelector);
 
-    triggers.forEach(trigger => {
-      trigger.addEventListener('click', (e) => {
+    triggers.forEach((trigger: Node) => {
+      trigger.addEventListener('click', (e): void => {
         if (e.target) {
           e.preventDefault();
         }
@@ -14,34 +14,34 @@ export const modals = () => {
       });
     });
 
-    close.addEventListener('click', () => {
+    close.addEventListener('click', (): void => {
       closeModal(modal);
     });
 
-    document.addEventListener('keydown', e => {
+    document.addEventListener('keydown', (e): void => {
       if (e.key === 'Escape') {
         closeModal(modal);
       }
     })
 
-    modal.addEventListener('click', (e) => {
+    modal.addEventListener('click', (e): void => {
       if (e.target === modal) {
         closeModal(modal);
       }
     })
   }
   
-  const closeModal = modal => {
+  const closeModal = (modal: any): void => {
     modal.style.display = 'none';
     document.body.classList.remove('modal-open');
   }
 
-  const showModal = modal => {
+  const showModal = (modal: any): void => {
     modal.style.display = 'block';
     document.body.classList.add('modal-open');
   }
 
-  const showModalByTime = (selector, time) => {
+  const showModalByTime = (selector: string, time: number) => {
     setTimeout(() => {
       showModal(document.querySelector(selector));
     }, time);
