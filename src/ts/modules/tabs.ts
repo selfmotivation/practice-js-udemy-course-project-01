@@ -1,7 +1,16 @@
-export const tabs = (headerSelector: string, tabSelector: string, contentSelector: string, activeClass: string): void => {
-  const header: Node = document.querySelector(headerSelector);
-  const tabs: NodeListOf<HTMLElement> = document.querySelectorAll(tabSelector);
-  const content: NodeListOf<HTMLElement> = document.querySelectorAll(contentSelector);
+"use strict";
+
+type TabsParams = {
+  headerSelector: string;
+  tabSelector: string;
+  contentSelector: string;
+  activeClass: string;
+}
+
+export const tabs = (tabsParams: TabsParams): void => {
+  const header: Node = document.querySelector(tabsParams.headerSelector);
+  const tabs: NodeListOf<HTMLElement> = document.querySelectorAll(tabsParams.tabSelector);
+  const content: NodeListOf<HTMLElement> = document.querySelectorAll(tabsParams.contentSelector);
 
   const hideTabContent = (): void => {
     content.forEach((contentItem) => {
@@ -9,13 +18,13 @@ export const tabs = (headerSelector: string, tabSelector: string, contentSelecto
     });
 
     tabs.forEach((tab): void => {
-      tab.classList.remove(activeClass);
+      tab.classList.remove(tabsParams.activeClass);
     });
   }
 
   const showTabContent = ((i: number = 0): void => {
     content[i].style.display = 'block';
-    tabs[i].classList.add(activeClass);
+    tabs[i].classList.add(tabsParams.activeClass);
   });
 
   hideTabContent();
@@ -25,8 +34,8 @@ export const tabs = (headerSelector: string, tabSelector: string, contentSelecto
     const target: any = event.target;
 
     if (target &&
-        (target.classList.contains(tabSelector.replace(/\./, "")) ||
-        target.parentElement.classList.contains(tabSelector.replace(/\./, "")))) {
+        (target.classList.contains(tabsParams.tabSelector.replace(/\./, "")) ||
+        target.parentElement.classList.contains(tabsParams.tabSelector.replace(/\./, "")))) {
           tabs.forEach((tab, index): void => {
             if (target === tab || target.parentElement === tab) {
               hideTabContent();
