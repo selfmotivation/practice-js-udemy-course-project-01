@@ -8,9 +8,10 @@ type TabsParams = {
 }
 
 export const tabs = (tabsParams: TabsParams): void => {
-  const header: Node = document.querySelector(tabsParams.headerSelector);
-  const tabs: NodeListOf<HTMLElement> = document.querySelectorAll(tabsParams.tabSelector);
-  const content: NodeListOf<HTMLElement> = document.querySelectorAll(tabsParams.contentSelector);
+  const { headerSelector, tabSelector, contentSelector, activeClass } = tabsParams;
+  const header: Node = document.querySelector(headerSelector);
+  const tabs: NodeListOf<HTMLElement> = document.querySelectorAll(tabSelector);
+  const content: NodeListOf<HTMLElement> = document.querySelectorAll(contentSelector);
 
   const hideTabContent = (): void => {
     content.forEach((contentItem) => {
@@ -18,24 +19,24 @@ export const tabs = (tabsParams: TabsParams): void => {
     });
 
     tabs.forEach((tab): void => {
-      tab.classList.remove(tabsParams.activeClass);
+      tab.classList.remove(activeClass);
     });
   }
 
   const showTabContent = ((i: number = 0): void => {
     content[i].style.display = 'block';
-    tabs[i].classList.add(tabsParams.activeClass);
+    tabs[i].classList.add(activeClass);
   });
 
   hideTabContent();
   showTabContent();
 
   header.addEventListener('click', (event): void => {
-    const target: any = event.target;
+    const target = event.target as Element;
 
     if (target &&
-        (target.classList.contains(tabsParams.tabSelector.replace(/\./, "")) ||
-        target.parentElement.classList.contains(tabsParams.tabSelector.replace(/\./, "")))) {
+        (target.classList.contains(tabSelector.replace(/\./, "")) ||
+        target.parentElement.classList.contains(tabSelector.replace(/\./, "")))) {
           tabs.forEach((tab, index): void => {
             if (target === tab || target.parentElement === tab) {
               hideTabContent();
