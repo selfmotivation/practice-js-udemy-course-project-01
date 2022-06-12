@@ -5,10 +5,11 @@ type TabsParams = {
   tabSelector: string;
   contentSelector: string;
   activeClass: string;
+  displayState: string;
 }
 
 export const tabs = (tabsParams: TabsParams): void => {
-  const { headerSelector, tabSelector, contentSelector, activeClass } = tabsParams;
+  const { headerSelector, tabSelector, contentSelector, activeClass, displayState } = tabsParams;
   const header: Node = document.querySelector(headerSelector);
   const tabs: NodeListOf<HTMLElement> = document.querySelectorAll(tabSelector);
   const content: NodeListOf<HTMLElement> = document.querySelectorAll(contentSelector);
@@ -24,7 +25,7 @@ export const tabs = (tabsParams: TabsParams): void => {
   }
 
   const showTabContent = ((i: number = 0): void => {
-    content[i].style.display = 'block';
+    content[i].style.display = displayState;
     tabs[i].classList.add(activeClass);
   });
 
